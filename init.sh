@@ -1,16 +1,42 @@
 #!/bin/bash
 
 # Script to create comprehensive learning directory structure
-# Based on existing structure with extended fundamentals curriculum
+# Usage: ./init.sh [language]
+# Example: ./init.sh rust
 
-echo "Creating comprehensive learning directory structure..."
+LANG=${1:-python}  # Default to python if no argument provided
 
-# Note: Using existing 'app' directory for real-world projects
+# Set file extension based on language
+case $LANG in
+    rust)
+        EXT="rs"
+        ;;
+    scala)
+        EXT="scala"
+        ;;
+    typescript)
+        EXT="ts"
+        ;;
+    python)
+        EXT="py"
+        ;;
+    go)
+        EXT="go"
+        ;;
+    *)
+        echo "Unknown language: $LANG"
+        echo "Supported languages: rust, scala, typescript, python, go"
+        exit 1
+        ;;
+esac
 
-# Extend DSA structure with comprehensive data structures and algorithms
-mkdir -p dsa/implementation/{arrays,linked_lists,trees,graphs,sorting,searching,heaps,hash_tables,stacks_queues,tries,probabilistic,advanced_trees,string_algorithms,geometric}
+echo "Creating comprehensive learning directory structure for $LANG..."
 
-# Create comprehensive fundamentals structure (20 weeks, 102 topics)
+# Create comprehensive DSA structure with leetcode directory organized by problem numbers
+mkdir -p dsa/leetcode/{0001-0100,0101-0200,0201-0300,0301-0400,0401-0500,0501-0600,0601-0700,0701-0800,0801-0900,0901-1000,1001-1100,1101-1200,1201-1300,1301-1400,1401-1500,1501-1600,1601-1700,1701-1800,1801-1900,1901-2000,2001-2100,2101-2200,2201-2300,2301-2400,2401-2500,2501-2600,2601-2700,2701-2800,2801-2900,2901-3000}
+mkdir -p dsa/implementation/{arrays,linked_lists,trees,graphs,sorting,searching,heaps,hash_tables,stacks_queues,tries,probabilistic,advanced_trees,string_algorithms,geometric,union_find,segment_trees,suffix_arrays,b_trees,skip_lists,persistent_structures,compression,bit_manipulation}
+
+# Create comprehensive fundamentals structure (24 weeks, 160 topics)
 mkdir -p fundamentals/week_01_basics/{01_variables_and_types,02_strings_and_formatting,03_numbers_and_math,04_booleans_and_logic,05_basic_io,06_comments_and_documentation,07_basic_operators}
 
 mkdir -p fundamentals/week_02_control_flow/{08_conditionals,09_loops,10_break_continue,11_switch_case,12_error_basics}
@@ -21,43 +47,60 @@ mkdir -p fundamentals/week_04_functions/{18_function_basics,19_parameters_argume
 
 mkdir -p fundamentals/week_05_oop_basics/{23_classes_and_objects,24_constructors,25_methods_and_properties,26_inheritance,27_encapsulation}
 
-mkdir -p fundamentals/week_06_intermediate/{28_file_handling,29_modules_and_imports,30_package_management,31_testing_basics,32_debugging}
+mkdir -p fundamentals/week_06_intermediate/{28_file_handling,29_modules_and_imports,30_package_management,31_testing_basics,32_debugging,33_regular_expressions,34_data_validation}
 
-mkdir -p fundamentals/week_07_error_handling/{33_exception_types,34_try_catch_patterns,35_error_propagation,36_custom_exceptions,37_logging_and_monitoring}
+mkdir -p fundamentals/week_07_error_and_resource/{35_exception_types,36_try_catch_patterns,37_error_propagation,38_custom_exceptions,39_logging_and_monitoring,40_resource_management,41_cleanup_patterns}
 
-mkdir -p fundamentals/week_08_memory_and_performance/{38_memory_management,39_garbage_collection,40_profiling_basics,41_optimization_techniques,42_benchmarking}
+mkdir -p fundamentals/week_08_memory_and_performance/{42_memory_models,43_value_vs_reference,44_garbage_collection,45_profiling_basics,46_optimization_techniques,47_benchmarking,48_cache_efficiency}
 
-mkdir -p fundamentals/week_09_concurrency/{43_threads_basics,44_async_programming,45_synchronization,46_race_conditions,47_parallel_processing}
+mkdir -p fundamentals/week_09_concurrency/{49_threads_basics,50_async_programming,51_synchronization,52_race_conditions,53_parallel_processing,54_channels_and_messaging,55_concurrency_patterns}
 
-mkdir -p fundamentals/week_10_advanced_oop/{48_polymorphism,49_composition_vs_inheritance,50_interfaces_protocols,51_abstract_classes,52_metaprogramming_basics}
+mkdir -p fundamentals/week_10_types_and_oop/{56_polymorphism,57_composition_vs_inheritance,58_interfaces_protocols,59_abstract_classes,60_metaprogramming_basics,61_generics_and_variance,62_type_inference}
 
-mkdir -p fundamentals/week_11_functional_programming/{53_immutability,54_pure_functions,55_map_filter_reduce,56_function_composition,57_monads_and_functors}
+mkdir -p fundamentals/week_11_functional_programming/{63_immutability,64_pure_functions,65_map_filter_reduce,66_function_composition,67_monads_and_functors,68_pattern_matching,69_tail_recursion}
 
-mkdir -p fundamentals/week_12_io_and_networking/{58_file_systems,59_serialization,60_http_clients,61_sockets_basics,62_streams_and_buffers}
+mkdir -p fundamentals/week_12_io_and_networking/{70_file_systems,71_serialization_formats,72_http_clients,73_sockets_basics,74_streams_and_buffers,75_binary_protocols,76_async_io}
 
-mkdir -p fundamentals/week_13_databases/{63_database_connections,64_sql_basics,65_orm_patterns,66_migrations,67_connection_pooling}
+mkdir -p fundamentals/week_13_databases/{77_database_connections,78_sql_basics,79_orm_patterns,80_migrations,81_connection_pooling,82_transactions,83_nosql_basics}
 
-mkdir -p fundamentals/week_14_web_development/{68_http_servers,69_routing,70_middleware,71_templating,72_static_files}
+mkdir -p fundamentals/week_14_web_development/{84_http_servers,85_routing,86_middleware,87_websockets,88_static_files,89_cors_and_headers,90_request_lifecycle}
 
-mkdir -p fundamentals/week_15_apis_and_services/{73_rest_apis,74_json_handling,75_authentication,76_rate_limiting,77_api_documentation}
+mkdir -p fundamentals/week_15_apis_and_services/{91_rest_apis,92_graphql_basics,93_grpc_basics,94_authentication,95_rate_limiting,96_api_documentation,97_service_discovery}
 
-mkdir -p fundamentals/week_16_security/{78_input_validation,79_encryption_basics,80_secure_storage,81_common_vulnerabilities,82_security_headers}
+mkdir -p fundamentals/week_16_security/{98_input_validation,99_encryption_basics,100_secure_storage,101_common_vulnerabilities,102_security_headers,103_secrets_management,104_auth_patterns}
 
-mkdir -p fundamentals/week_17_testing_advanced/{83_unit_testing,84_integration_testing,85_mocking_and_stubs,86_test_coverage,87_property_based_testing}
+mkdir -p fundamentals/week_17_testing_advanced/{105_unit_testing,106_integration_testing,107_mocking_and_stubs,108_test_coverage,109_property_testing,110_benchmark_testing,111_fuzzing_basics}
 
-mkdir -p fundamentals/week_18_tooling_and_ecosystem/{88_package_managers,89_build_systems,90_linting_and_formatting,91_dependency_management,92_virtual_environments}
+mkdir -p fundamentals/week_18_tooling_and_ecosystem/{112_package_managers,113_build_systems,114_linting_formatting,115_dependency_management,116_virtual_environments,117_documentation_tools,118_debugging_tools}
 
-mkdir -p fundamentals/week_19_deployment_and_ops/{93_containerization,94_environment_configuration,95_monitoring_and_logging,96_health_checks,97_graceful_shutdown}
+mkdir -p fundamentals/week_19_deployment_and_ops/{119_containerization,120_environment_config,121_monitoring_logging,122_health_checks,123_graceful_shutdown,124_metrics_and_tracing,125_feature_flags}
 
-mkdir -p fundamentals/week_20_advanced_topics/{98_reflection_introspection,99_code_generation,100_ffi_and_bindings,101_compiler_internals,102_language_extensions}
+mkdir -p fundamentals/week_20_advanced_topics/{126_reflection_introspection,127_code_generation,128_ffi_and_bindings,129_compiler_internals,130_language_extensions,131_macros_and_codegen,132_unsafe_operations}
 
-# Extend patterns structure
-mkdir -p patterns/{creational,structural,behavioral,functional,architectural}
+mkdir -p fundamentals/week_21_distributed_basics/{133_cap_theorem,134_consistency_models,135_distributed_transactions,136_consensus_basics,137_event_sourcing,138_cqrs_pattern,139_saga_pattern}
 
-# Create app project categories (fundamental systems)
-mkdir -p app/{file_processing,http_servers,database,cli_tools,apis,authentication,cryptography,security,messaging,caching,monitoring,configuration,networking,streaming,searching,batch_processing,protocols,proxies}
+mkdir -p fundamentals/week_22_data_processing/{140_streaming_vs_batch,141_map_reduce_basics,142_pipeline_patterns,143_backpressure,144_data_validation,145_etl_patterns,146_event_driven_arch}
 
-# Create template files for a few example directories to show structure
+mkdir -p fundamentals/week_23_state_management/{147_state_machines,148_event_stores,149_caching_strategies,150_session_management,151_distributed_state,152_persistence_patterns,153_data_migration}
+
+mkdir -p fundamentals/week_24_performance_patterns/{154_profiling_strategies,155_memory_optimization,156_cpu_optimization,157_io_optimization,158_caching_layers,159_lazy_evaluation,160_performance_testing}
+
+# Language-specific adjustments
+if [ "$LANG" = "rust" ]; then
+    mkdir -p fundamentals/rust_specific/{ownership_borrowing,lifetimes,traits_vs_interfaces,unsafe_rust,procedural_macros}
+elif [ "$LANG" = "go" ]; then
+    mkdir -p fundamentals/go_specific/{goroutines_channels,interfaces_embedding,defer_panic_recover,context_package,go_modules}
+elif [ "$LANG" = "scala" ]; then
+    mkdir -p fundamentals/scala_specific/{implicits_givens,higher_kinded_types,type_classes,effect_systems,akka_actors}
+fi
+
+# Create comprehensive patterns structure
+mkdir -p patterns/{creational,structural,behavioral,functional,architectural,concurrency,distributed,data_access,messaging,resilience}
+
+# Create app project categories (comprehensive real-world systems)
+mkdir -p app/{file_processing,http_servers,database,cli_tools,apis,authentication,cryptography,security,messaging,caching,monitoring,configuration,networking,streaming,searching,batch_processing,protocols,proxies,queues,schedulers,etl_pipelines,websockets,state_machines,event_stores,service_mesh,feature_flags}
+
+# Create template files with appropriate extensions
 echo "# Variables and Types
 
 ## Core Concepts
@@ -67,22 +110,44 @@ echo "# Variables and Types
 - Scope and lifetime
 
 ## Language-Specific Notes
-[Add language-specific details here]
+[Add $LANG-specific details here]
 
 ## Common Patterns
 [Add common usage patterns]
 " > fundamentals/week_01_basics/01_variables_and_types/README.md
 
-echo "# Examples will go here" > fundamentals/week_01_basics/01_variables_and_types/examples.py
-echo "# Exercises will go here" > fundamentals/week_01_basics/01_variables_and_types/exercises.py
-echo "# Solutions will go here" > fundamentals/week_01_basics/01_variables_and_types/solutions.py
+echo "// Examples will go here" > fundamentals/week_01_basics/01_variables_and_types/examples.$EXT
+echo "// Exercises will go here" > fundamentals/week_01_basics/01_variables_and_types/exercises.$EXT
+echo "// Solutions will go here" > fundamentals/week_01_basics/01_variables_and_types/solutions.$EXT
+
+# Create DSA README files
+echo "# LeetCode Solutions
+
+This directory contains LeetCode problem solutions organized by problem number.
+
+## Structure
+- 0001-0100: Problems 1-100
+- 0101-0200: Problems 101-200
+- ... and so on
+
+Each solution file is named by problem number and title, e.g.:
+- 0001_two_sum.$EXT
+- 0015_3sum.$EXT
+- 0042_trapping_rain_water.$EXT
+" > dsa/leetcode/README.md
 
 echo "# Binary Search Implementation" > dsa/implementation/searching/README.md
 echo "# Bloom Filters and Probabilistic Data Structures" > dsa/implementation/probabilistic/README.md
 echo "# Hash Tables and Hash Maps" > dsa/implementation/hash_tables/README.md
 echo "# Tries and Prefix Trees" > dsa/implementation/tries/README.md
+echo "# Union-Find (Disjoint Set) Data Structure" > dsa/implementation/union_find/README.md
+echo "# Segment Trees for Range Queries" > dsa/implementation/segment_trees/README.md
+echo "# B-Trees and B+ Trees" > dsa/implementation/b_trees/README.md
 
 echo "# Creational Design Patterns" > patterns/creational/README.md
+echo "# Concurrency Patterns" > patterns/concurrency/README.md
+echo "# Distributed System Patterns" > patterns/distributed/README.md
+echo "# Data Access Patterns" > patterns/data_access/README.md
 
 echo "# File Processing Projects" > app/file_processing/README.md
 echo "# Authentication Systems" > app/authentication/README.md
@@ -95,18 +160,29 @@ echo "# Search Engines and Indexing" > app/searching/README.md
 echo "# Batch Processing Systems" > app/batch_processing/README.md
 echo "# Custom Protocols" > app/protocols/README.md
 echo "# Proxy and Load Balancer Implementations" > app/proxies/README.md
+echo "# Queue Systems and Job Processing" > app/queues/README.md
+echo "# Task Schedulers and Cron Systems" > app/schedulers/README.md
+echo "# ETL and Data Pipeline Systems" > app/etl_pipelines/README.md
+echo "# WebSocket and Real-time Communication" > app/websockets/README.md
+echo "# State Machine Implementations" > app/state_machines/README.md
 
 echo ""
-echo "✅ Directory structure created successfully!"
+echo "✅ Directory structure created successfully for $LANG!"
 echo ""
 echo "📁 Structure includes:"
-echo "  • DSA: leetcode problems + fundamental implementations"
-echo "  • 20-week fundamentals curriculum (102 topics)"
-echo "  • Design patterns organized by category"
-echo "  • App: real-world project categories"
+echo "  • DSA: LeetCode solutions (organized by problem number) + implementations"
+echo "  • 24-week fundamentals curriculum (160 topics)"
+if [ "$LANG" = "rust" ] || [ "$LANG" = "go" ] || [ "$LANG" = "scala" ]; then
+    echo "  • Language-specific topics for $LANG"
+fi
+echo "  • Design patterns: 10 categories including concurrency and distributed"
+echo "  • App: 26 real-world project categories"
+echo ""
+echo "📊 Total learning modules: 160+ fundamental topics + DSA + patterns + projects"
 echo ""
 echo "📝 Template files created in:"
 echo "  • fundamentals/week_01_basics/01_variables_and_types/"
+echo "  • dsa/leetcode/README.md"
 echo "  • Sample README files in major sections"
 echo ""
-echo "🚀 Ready to start your comprehensive learning journey!"
+echo "🚀 Ready to start your comprehensive $LANG learning journey!"
