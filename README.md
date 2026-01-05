@@ -1,87 +1,83 @@
-# Welcome to React Router!
+# n8n-dev
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Local development environment for n8n workflow automation.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+## Quick Start
 
 ```bash
-npm install
+# 1. Copy environment file
+cp .env.example .env
+
+# 2. Start services
+make up
+
+# 3. Open n8n
+open http://localhost:5678
 ```
 
-### Development
+## Services
 
-Start the development server with HMR:
+| Service  | Port | Description         |
+| -------- | ---- | ------------------- |
+| n8n      | 5678 | Workflow editor/API |
+| Postgres | 5440 | Database            |
+| Redis    | 6380 | Cache (queue ready) |
+
+## Commands
 
 ```bash
-npm run dev
+make up          # Start containers (detached)
+make up-logs     # Start with logs attached
+make down        # Stop containers
+make restart     # Restart all
+make logs        # Tail all logs
+make logs-n8n    # Tail n8n logs only
+make ps          # Show container status
+make health      # Check service health
+
+make backup      # Backup database
+make restore file=backups/n8n_xxx.sql  # Restore from backup
+
+make shell-n8n   # Shell into n8n container
+make shell-db    # Postgres CLI
+make shell-redis # Redis CLI
+
+make clean       # Stop and remove volumes (DATA LOSS)
 ```
 
-Your application will be available at `http://localhost:5173`.
+## Project Structure
 
-## Building for Production
+```
+n8n-dev/
+├── docker-compose.yml
+├── .env
+├── .env.example
+├── Makefile
+├── config/n8n/
+├── scripts/
+│   ├── backup.sh
+│   └── restore.sh
+├── frontend/          # Future: headless Next.js client
+└── deploy/
+    ├── terraform/     # Future: infra provisioning
+    └── k8s/           # Future: Kubernetes manifests
+```
 
-Create a production build:
+## Backups
+
+Backups are stored in `backups/` (gitignored).
 
 ```bash
-npm run build
+make backup
+# -> backups/n8n_2026-01-05_123456.sql
+
+make restore file=backups/n8n_2026-01-05_123456.sql
 ```
 
-## Deployment
+## Future Roadmap
 
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+- [ ] Headless Next.js frontend (n8n as backend engine)
+- [ ] Queue mode with workers
+- [ ] Terraform provisioning
+- [ ] Kubernetes deployment
+- [ ] Custom tools integration
