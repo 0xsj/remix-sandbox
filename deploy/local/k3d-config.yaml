@@ -1,0 +1,36 @@
+# k3d cluster configuration
+# Docs: https://k3d.io/v5.7.5/usage/configfile/
+
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: n8n-local # Cluster name - you'll see this in kubectl
+
+servers: 1 # Control plane nodes (1 is fine for local dev)
+agents: 0 # Worker nodes (0 means workloads run on the server node)
+
+# Ports to expose from the cluster to your local machine
+ports:
+  - port: 8080:80 # HTTP ingress -> localhost:8080
+    nodeFilters:
+      - loadbalancer
+  - port: 8443:443 # HTTPS ingress -> localhost:8443
+    nodeFilters:
+      - loadbalancer
+  - port: 5679:30000 # n8n NodePort -> localhost:5678
+    nodeFilters:
+      - loadbalancer
+
+# Mount local directories into the cluster (optional, useful for dev)
+# volumes:
+#   - volume: ./data:/data
+#     nodeFilters:
+#       - all
+
+# k3s args
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik # We'll handle ingress ourselves if needed
+        nodeFilters:
+          - server:*

@@ -1,7 +1,39 @@
-.DS_Store
+# Environment files
 .env
-/node_modules/
+.env.local
+.env.*.local
 
-# React Router
-/.react-router/
-/build/
+# Node (for future frontend)
+node_modules/
+.next/
+out/
+.npm/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker
+*.pid
+
+# Terraform
+deploy/terraform/.terraform/
+deploy/terraform/*.tfstate
+deploy/terraform/*.tfstate.*
+deploy/terraform/*.tfvars
+deploy/terraform/.terraform.lock.hcl
+
+# Backups (if stored locally)
+*.sql
+*.dump
+backups/
