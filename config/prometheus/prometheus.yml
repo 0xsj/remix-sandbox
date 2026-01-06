@@ -8,22 +8,12 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9090"]
 
-  # n8n metrics (if enabled)
+  # n8n metrics
   - job_name: "n8n"
     static_configs:
       - targets: ["n8n:5678"]
     metrics_path: /metrics
     scrape_interval: 30s
-
-  # Postgres via postgres_exporter (optional, add later)
-  # - job_name: 'postgres'
-  #   static_configs:
-  #     - targets: ['postgres-exporter:9187']
-
-  # Redis
-  - job_name: "redis"
-    static_configs:
-      - targets: ["redis:6379"]
 
   # MinIO
   - job_name: "minio"
@@ -35,16 +25,4 @@ scrape_configs:
   - job_name: "nats"
     static_configs:
       - targets: ["nats:8222"]
-    metrics_path: /metrics
-
-  # Elasticsearch
-  - job_name: "elasticsearch"
-    static_configs:
-      - targets: ["elasticsearch:9200"]
-    metrics_path: /_prometheus/metrics
-
-  # Loki
-  - job_name: "loki"
-    static_configs:
-      - targets: ["loki:3100"]
     metrics_path: /metrics
